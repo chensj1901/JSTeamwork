@@ -32,8 +32,9 @@
         }
 
         if (creditsChoice) {
-            alert('Credits!');
-            console.log('Credits!');
+            //alert('Credits!');
+            //console.log('Credits!');
+            window.location.href = 'credits/Credits.html';
         }
 
         if (exitChoice) {
