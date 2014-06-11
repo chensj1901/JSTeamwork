@@ -36,7 +36,7 @@
     var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
     var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
-    function drawTopBorder(positionY) {
+    function drawCanvasTopBorder (positionY) {
         context.beginPath();
         context.moveTo(0, positionY);
         context.lineTo(canvas.width, positionY);
@@ -49,6 +49,10 @@
         if (event.keyCode === 32) {
             shark.jump();
         }
+    }
+
+    function onMouseClickEvent (event) {
+        console.log(event.pageX);
     }
 
     // Draw health bar
@@ -81,7 +85,7 @@
         oceanFloorBackground.draw();
         boatBackground.draw();
 
-        drawTopBorder(40);
+        drawCanvasTopBorder(40);
 
         window.requestAnimationFrame(drawFrame, canvas);
     }
@@ -95,6 +99,7 @@
         spriteSheet.src = '';
 
         window.addEventListener('keydown', onKeyboardEvent, false);
+        window.addEventListener('click', onMouseClickEvent, false);
         window.requestAnimationFrame(drawFrame, canvas);
     }
 
