@@ -68,11 +68,11 @@ function Prey(context, initialX, initialY) {
 }
 // TODO: Add health bar animation (create object which will be updated and drawn).
 
-function Background (context, imageSource, velocityX) {
+function BackgroundFeature (context, imageSource, positionY, velocityX) {
     this.image = new Image();
     this.image.src = imageSource;
     this.x = 0;
-    this.y = 350;
+    this.y = positionY;
 
     this.draw = function () {
         // We draw the image normally (with constant velocity on the X axis).
