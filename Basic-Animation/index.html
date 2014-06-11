@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Basic Animation</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 
-<link rel="stylesheet" href="style.css"/>
 <body>
 
-<canvas id="animation-canvas" width="800" height="600" style="border:1px solid #000;">
+<canvas id="animation-canvas" width="800" height="600">
     <p>
         Unfortunately, your browser does not currently support HTML5 Canvas.
         Please, check <a href="http://caniuse.com/#feat=canvas">here</a>
@@ -22,7 +22,6 @@
 <script src="HealthBar1/raphael.js"></script>
 <script src="HealthBar1/HealthBar.js"></script>
 
-
 <script>
     var canvas = document.getElementById("animation-canvas"),
         context = canvas.getContext('2d');
@@ -32,10 +31,17 @@
     // Initialize objects
     var shark = new Shark(context, 50, 250);
     var prey = new Prey(context, 750, 250);
-    var healthBar= new HealthBar(300,1,5);
 
-    var background = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
-    var boat = new BackgroundFeature(context, 'images/boat.png', 42, 2);
+    var healthBar = new HealthBar(300, 1, 5);
+    var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
+    var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
+
+    function drawTopBorder(positionY) {
+        context.beginPath();
+        context.moveTo(0, positionY);
+        context.lineTo(canvas.width, positionY);
+        context.stroke();
+    }
 
     // TODO: Add mouse events for menu navigation.
     // User interaction
@@ -46,16 +52,25 @@
     }
 
     // Draw health bar
-    setInterval(function(){
-        healthBar.update();
-        healthBar.draw();
-    }, 200);
+//    setInterval(function(){
+//        healthBar.update();
+//        healthBar.draw();
+//    }, 200);
+
+//    function drawHealthBar() {
+//        healthBar.update();
+//        healthBar.draw();
+//        window.requestAnimationFrame(drawHealthBar);
+//    }
+
+
 
     // Animation
     function drawFrame () {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-
+//        healthBar.update();
+//        healthBar.draw();
 
         shark.update();
         shark.draw();
@@ -63,14 +78,10 @@
         prey.draw();
         prey.update();
 
-        background.draw();
-       boat.draw();
+        oceanFloorBackground.draw();
+        boatBackground.draw();
 
-
-        context.beginPath();
-        context.moveTo(0, 40);
-        context.lineTo(canvas.width, 40);
-        context.stroke();
+        drawTopBorder(40);
 
         window.requestAnimationFrame(drawFrame, canvas);
     }
