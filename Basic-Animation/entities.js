@@ -2,7 +2,6 @@
 function PlayerGameObject (context, initialX, initialY) {
     this.x = initialX;
     this.y = initialY;
-    this.velocityX = 6;
     this.velocityY = 0.5;
     this.GRAVITY = 0.2;
     this.JUMP_HEIGHT = 10;
@@ -12,17 +11,16 @@ function PlayerGameObject (context, initialX, initialY) {
         context.beginPath();
         context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
         context.stroke();
-    }
+    };
 
     this.update = function () {
-        this.x += this.velocityX;
         this.y += this.velocityY;
         this.velocityY += this.GRAVITY;
-    }
+    };
 
     this.jump = function () {
         this.velocityY -= this.JUMP_HEIGHT;
-    }
+    };
 }
 
 function Background (context, imageSource, velocityX) {
@@ -32,7 +30,7 @@ function Background (context, imageSource, velocityX) {
     this.y = 350;
 
     this.draw = function () {
-        // We draw the image normally (with the constant velocity on the X axis).
+        // We draw the image normally (with constant velocity on the X axis).
         context.drawImage(this.image, this.x, this.y);
         // We draw the image again at a position right after the first drawing by calculating
         // the X position of the end of the first drawing.
@@ -44,5 +42,5 @@ function Background (context, imageSource, velocityX) {
         }
 
         this.x -= velocityX;
-    }
+    };
 }
