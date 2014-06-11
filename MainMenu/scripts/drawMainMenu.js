@@ -39,9 +39,9 @@
         }
 
         if (exitChoice) {
-            // alert('Exit!');
+             alert('Exit!');
             // console.log('Exit!');
-             window.home();
+             //window.home();
         }                  
     }
 }());
