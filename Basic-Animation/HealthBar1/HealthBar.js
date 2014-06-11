@@ -2,7 +2,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
 
     this.maxHP = maxhp; //tested with 300
     this.currentHP = this.maxHP;
-    this.percentageHP;
+    this.percentageHP = 1;
     this.constantDecreaseHP = constantDecreasehp; //tested with 1
     this.fishIncrementHP = fishIncrementhp;
     this.paper = Raphael(canvas.offsetLeft, canvas.offsetTop, 900, 600);
@@ -27,7 +27,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
             this.currentHP = this.maxHP;
         }
         this.percentageHP = this.currentHP / this.maxHP;
-    }
+    };
     //TODO: eat Fish Trigger --> this is a sample randomizer for fish eating.
     this.triggerFish=function()  {
         var randomFishTrigger = Math.random() * 100;
@@ -37,7 +37,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
         else {
             return false;
         }
-    }
+    };
 
     this.draw=function() {
         var outerRect = this.paper.rect(6, 6, 340, 23, 3);
@@ -59,5 +59,5 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
             "stroke-width": 0.5
         });
 
-    }
+    };
 }
