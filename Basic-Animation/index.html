@@ -19,8 +19,8 @@
 
 <script src="entities.js"></script>
 <script src="sprite.js"></script>
-<script src="HealthBar1/raphael.js"></script>
-<script src="HealthBar1/HealthBar.js"></script>
+<script src="HealthBar/raphael.js"></script>
+<script src="HealthBar/HealthBar.js"></script>
 
 
 <script>
@@ -45,22 +45,20 @@
         }
     }
 
-    // Draw health bar
-    setInterval(function(){
-        healthBar.update();
-        healthBar.draw();
-    }, 200);
+  //  // Draw health bar
+  //  setInterval(function(){
+  //      healthBar.update();
+  //      healthBar.draw();
+  //  }, 200);
 
     // Animation
     function drawFrame () {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-<<<<<<< HEAD
-       // healthBar.update();
-      //  healthBar.draw();
-=======
 
->>>>>>> origin/master
+        healthBar.update();
+
+        healthBar.draw();
 
         shark.update();
         shark.draw();
