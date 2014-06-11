@@ -23,24 +23,49 @@ function Shark (context, initialX, initialY) {
     };
 }
 
-function Prey (context, initialX, initialY) {
+function Prey(context, initialX, initialY) {
+    this.preyArray = [];
+
     // TODO: Prey needs to be an array of small fish with random positions.
     // TODO: Prey fish need to be removed from the array when eaten (collision detection) or when outside canvas.
     this.x = initialX;
     this.y = initialY;
     this.VELOCITY_X = 2;
-
-    this.draw = function () {
-        context.beginPath();
-        context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
-        context.stroke();
-    };
-
+    this.generatePreyFrequency = 0;
     this.update = function () {
         this.x -= this.VELOCITY_X;
+        this.generatePreyFrequency+=1;
+        if(this.generatePreyFrequency === 150) {
+            var newPreyY = Math.floor(Math.random() * (560 - 20) + 60);
+            this.preyArray.push({
+                x: initialX,
+                y: newPreyY
+                // height: 50,
+                // width: 50
+            });
+            this.generatePreyFrequency = 0;
+        }
+
+        for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
+            var currentPrey = this.preyArray[i];
+            currentPrey.x-= this.VELOCITY_X;
+            if (currentPrey.x < 100) { //100 to be changed to 0, now stays for testing purposes
+                this.preyArray.splice(i, 1);
+                i-=1;
+                len-=1;
+            }
+        }
+    };
+
+    this.draw = function () {
+        for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
+            var currentPrey = this.preyArray[i];
+            context.beginPath();
+            context.arc(currentPrey.x, currentPrey.y, 10, 0, 2 * Math.PI); // to be replaced by sprite
+            context.stroke();
+        }
     };
 }
-
 // TODO: Add health bar animation (create object which will be updated and drawn).
 
 function Background (context, imageSource, velocityX) {
