@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Animation</title>
+</head>
+
+<body>
+
+<canvas id="animation-canvas" width="800" height="600" style="border:1px solid #000;">
+    <p>
+        Unfortunately, your browser does not currently support HTML5 Canvas.
+        Please, check <a href="http://caniuse.com/#feat=canvas">here</a>
+        for information on browser support for canvas.
+    </p>
+</canvas>
+
+<script src="entities.js"></script>
+<script src="sprite.js"></script>
+
+<script>
+    var canvas = document.getElementById("animation-canvas"),
+        context = canvas.getContext('2d');
+
+    // Initialize objects
+    var obj = new PlayerGameObject(context, 50, 250 );
+    var background = new Background(context, 'images/ocean-floor.png', 4)
+
+    // User interaction
+    function onKeyboardEvent (event) {
+        if (event.keyCode === 32) {
+            obj.jump();
+        }
+    }
+
+    // Animation
+    function drawFrame () {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        obj.update();
+        obj.draw();
+
+        background.draw();
+
+        window.requestAnimationFrame(drawFrame, canvas);
+    }
+
+    // The main game loop
+    function main() {
+        var spriteSheet = new Image();
+        spriteSheet.onload = function () {
+            initializeSprites(spriteSheet)
+        };
+        spriteSheet.src = '';
+
+        window.addEventListener('keydown', onKeyboardEvent, false);
+        window.requestAnimationFrame(drawFrame, canvas);
+    }
+
+    main();
+
+</script>
+
+</body>
+
+</html>
