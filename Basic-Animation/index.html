@@ -24,21 +24,27 @@
         context = canvas.getContext('2d');
 
     // Initialize objects
-    var obj = new PlayerGameObject(context, 50, 250 );
+    var playerObject = new PlayerGameObject(context, 50, 250 );
+    var enemyObject = new Enemy(context, 750, 250);
+
     var background = new Background(context, 'images/ocean-floor.png', 4);
 
     // User interaction
     function onKeyboardEvent (event) {
         if (event.keyCode === 32) {
-            obj.jump();
+            playerObject.jump();
         }
     }
 
     // Animation
     function drawFrame () {
         context.clearRect(0, 0, canvas.width, canvas.height);
-        obj.update();
-        obj.draw();
+
+        playerObject.update();
+        playerObject.draw();
+
+        enemyObject.draw();
+        enemyObject.update();
 
         background.draw();
 

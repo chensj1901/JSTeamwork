@@ -7,7 +7,6 @@ function PlayerGameObject (context, initialX, initialY) {
     this.JUMP_HEIGHT = 10;
 
     this.draw = function () {
-
         context.beginPath();
         context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
         context.stroke();
@@ -22,6 +21,23 @@ function PlayerGameObject (context, initialX, initialY) {
         this.velocityY -= this.JUMP_HEIGHT;
     };
 }
+
+function Enemy (context, initialX, initialY) {
+    this.x = initialX;
+    this.y = initialY;
+    this.velocityX = 2;
+
+    this.draw = function () {
+        context.beginPath();
+        context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
+        context.stroke();
+    };
+
+    this.update = function () {
+        this.x -= this.velocityX;
+    };
+}
+
 
 function Background (context, imageSource, velocityX) {
     this.image = new Image();
