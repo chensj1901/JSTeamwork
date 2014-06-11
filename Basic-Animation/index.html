@@ -51,37 +51,22 @@
         }
     }
 
-<<<<<<< HEAD
-=======
+
     function onMouseClickEvent (event) {
         console.log(event.pageX);
     }
 
-    // Draw health bar
-//    setInterval(function(){
-//        healthBar.update();
-//        healthBar.draw();
-//    }, 200);
 
-//    function drawHealthBar() {
-//        healthBar.update();
-//        healthBar.draw();
-//        window.requestAnimationFrame(drawHealthBar);
-//    }
-
->>>>>>> origin/master
 
 
     // Animation
     function drawFrame () {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
+
         healthBar.update();
-<<<<<<< HEAD
         healthBar.draw();
-=======
-      healthBar.draw();
->>>>>>> origin/master
+
 
         shark.update();
         shark.draw();
