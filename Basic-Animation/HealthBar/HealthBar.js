@@ -5,9 +5,16 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
     this.percentageHP = 1;
     this.constantDecreaseHP = constantDecreasehp; //tested with 1
     this.fishIncrementHP = fishIncrementhp;
-    this.paper = Raphael(canvas.offsetLeft, canvas.offsetTop, 900, 600);
+    this.paper = Raphael(canvas.offsetLeft, canvas.offsetTop, 350, 50);
 
     this.constantHPRectangleWidth = 334;
+
+    this.outerRect = this.paper.rect(6, 6, 340, 23, 3);
+    this.outerRect.attr({
+        fill: "0-#dadada:0-#f3f3f3:100",
+        stroke: "#7e7e7e",
+        "stroke-width": 0.5
+    });
 
     this.update=function(){
         //decreasing currentHP a fixed amount each frame
@@ -40,14 +47,9 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
     };
 
     this.draw=function() {
-        var outerRect = this.paper.rect(6, 6, 340, 23, 3);
-        outerRect.attr({
-            fill: "0-#dadada:0-#f3f3f3:100",
-            stroke: "#7e7e7e",
-            "stroke-width": 0.5
-        });
-        var innerRect = this.paper.rect(9, 9, 334, 17, 2);
-        innerRect.attr({
+        this.paper.clear();
+        this.innerRect = this.paper.rect(9, 9, 334, 17, 2);
+        this.innerRect.attr({
             fill: "0-#dadada:0-#f3f3f3:100",
             stroke: "#7e7e7e",
             "stroke-width": 0.5
@@ -58,6 +60,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
             stroke: "#7e7e7e",
             "stroke-width": 0.5
         });
+
 
     };
 }
