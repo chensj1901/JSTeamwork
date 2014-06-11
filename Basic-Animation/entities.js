@@ -1,11 +1,12 @@
 // Object constructors
-function PlayerGameObject (context, initialX, initialY) {
+function Shark (context, initialX, initialY) {
     this.x = initialX;
     this.y = initialY;
     this.velocityY = 0.5;
     this.GRAVITY = 0.2;
     this.JUMP_HEIGHT = 10;
 
+    // TODO: Add shark animation - implement frequent changes between its sprites.
     this.draw = function () {
         context.beginPath();
         context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
@@ -22,10 +23,12 @@ function PlayerGameObject (context, initialX, initialY) {
     };
 }
 
-function Enemy (context, initialX, initialY) {
+function Prey (context, initialX, initialY) {
+    // TODO: Prey needs to be an array of small fish with random positions.
+    // TODO: Prey fish need to be removed from the array when eaten (collision detection) or when outside canvas.
     this.x = initialX;
     this.y = initialY;
-    this.velocityX = 2;
+    this.VELOCITY_X = 2;
 
     this.draw = function () {
         context.beginPath();
@@ -34,10 +37,11 @@ function Enemy (context, initialX, initialY) {
     };
 
     this.update = function () {
-        this.x -= this.velocityX;
+        this.x -= this.VELOCITY_X;
     };
 }
 
+// TODO: Add health bar animation (create object which will be updated and drawn).
 
 function Background (context, imageSource, velocityX) {
     this.image = new Image();

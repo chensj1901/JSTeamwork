@@ -23,16 +23,18 @@
     var canvas = document.getElementById("animation-canvas"),
         context = canvas.getContext('2d');
 
+    // TODO: Add game states - initial screen with instructions, game on, game over, credits.
     // Initialize objects
-    var playerObject = new PlayerGameObject(context, 50, 250 );
-    var enemyObject = new Enemy(context, 750, 250);
+    var shark = new Shark(context, 50, 250 );
+    var prey = new Prey(context, 750, 250);
 
     var background = new Background(context, 'images/ocean-floor.png', 4);
 
+    // TODO: Add mouse events for menu navigation.
     // User interaction
     function onKeyboardEvent (event) {
         if (event.keyCode === 32) {
-            playerObject.jump();
+            shark.jump();
         }
     }
 
@@ -40,11 +42,11 @@
     function drawFrame () {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        playerObject.update();
-        playerObject.draw();
+        shark.update();
+        shark.draw();
 
-        enemyObject.draw();
-        enemyObject.update();
+        prey.draw();
+        prey.update();
 
         background.draw();
 
