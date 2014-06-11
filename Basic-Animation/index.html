@@ -19,6 +19,9 @@
 
 <script src="entities.js"></script>
 <script src="sprite.js"></script>
+<script src="HealthBar1/raphael.js"></script>
+<script src="HealthBar1/HealthBar.js"></script>
+
 
 <script>
     var canvas = document.getElementById("animation-canvas"),
@@ -29,6 +32,7 @@
     // Initialize objects
     var shark = new Shark(context, 50, 250);
     var prey = new Prey(context, 750, 250);
+    var healthBar= new HealthBar(300,1,5);
 
     var background = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
     var boat = new BackgroundFeature(context, 'images/boat.png', 42, 2);
@@ -44,6 +48,9 @@
     // Animation
     function drawFrame () {
         context.clearRect(0, 0, canvas.width, canvas.height);
+
+        healthBar.update();
+        healthBar.draw();
 
         shark.update();
         shark.draw();

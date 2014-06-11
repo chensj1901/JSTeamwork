@@ -27,19 +27,21 @@
         }
 
         if (highScoresChoice) {
-            alert('High Scores!');
-            console.log('High Scores!');
+            // alert('High Scores!');
+            // console.log('High Scores!');
+            window.location.href = 'HighScore/HighScore.html';
         }
 
         if (creditsChoice) {
             //alert('Credits!');
             //console.log('Credits!');
-            window.location.href = 'credits/Credits.html';
+            window.location.href = 'Credits/Credits.html';
         }
 
         if (exitChoice) {
-            alert('Exit!');
-            console.log('Exit!');
+             alert('Exit!');
+            // console.log('Exit!');
+             //window.home();
         }                  
     }
 }());
