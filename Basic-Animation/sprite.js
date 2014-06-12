@@ -66,4 +66,35 @@ function sprite (options) {
 	
 	return that;
 }
-	
+
+function drawScreen(context, source) {
+    var image = new Image();
+
+    image.onload = function () {
+        context.drawImage(image, 0, 0, context.canvas.width, context.canvas.height);
+    };
+
+    image.src = source;
+}
+
+function BackgroundFeature (context, imageSource, positionY, velocityX) {
+    this.image = new Image();
+    this.image.src = imageSource;
+    this.x = 0;
+    this.y = positionY;
+
+    this.draw = function () {
+        // We draw the image normally (with constant velocity on the X axis).
+        context.drawImage(this.image, this.x, this.y);
+        // We draw the image again at a position right after the first drawing by calculating
+        // the X position of the end of the first drawing.
+        context.drawImage(this.image, this.image.width - Math.abs(this.x), this.y);
+
+        // As soon as the x position is more than the image width, we re-set it to 0.
+        if (Math.abs(this.x) > this.image.width) {
+            this.x = 0;
+        }
+
+        this.x -= velocityX;
+    };
+}
