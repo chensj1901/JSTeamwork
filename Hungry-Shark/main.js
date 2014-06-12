@@ -82,11 +82,11 @@ function onMouseClickEvent (event) {
 function drawFrame () {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-<<<<<<< HEAD
+
     healthBar.update();
     healthBar.draw();
   oceanFloorBackground.draw();
-=======
+
     if (gameState == GameStatesEnum.GAME_ON) {
         healthBar.update();
         healthBar.draw();
@@ -94,7 +94,6 @@ function drawFrame () {
         scores.update();
     }
 
->>>>>>> origin/master
     shark.update();
     shark.draw();
 
