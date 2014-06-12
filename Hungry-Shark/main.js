@@ -19,6 +19,7 @@ var shark = new Shark(context, 50, 250);
 var prey = new Prey(context, 750, 250);
 
 var healthBar = new HealthBar(300, 1, 5);
+var scores= new Scores();
 
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
@@ -32,12 +33,20 @@ function drawCanvasTopBorder (positionY) {
 
 // TODO: Add mouse events for menu navigation.
 // User interaction
-function onKeyboardEvent (event) {
+var spaceButtonDown = false;
+
+function spaceDownEvent (event) {
     if (event.keyCode === 32) {
-        shark.jump();
+        if (!spaceButtonDown) {
+            spaceButtonDown = true;
+            shark.jump();
+        }
     }
 }
 
+function spaceUpEvent (event) {
+    spaceButtonDown = false;
+}
 
 function onMouseClickEvent (event) {
     var x = event.clientX,
@@ -73,9 +82,19 @@ function onMouseClickEvent (event) {
 function drawFrame () {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+<<<<<<< HEAD
     healthBar.update();
     healthBar.draw();
   oceanFloorBackground.draw();
+=======
+    if (gameState == GameStatesEnum.GAME_ON) {
+        healthBar.update();
+        healthBar.draw();
+        scores.draw();
+        scores.update();
+    }
+
+>>>>>>> origin/master
     shark.update();
     shark.draw();
 
@@ -90,7 +109,7 @@ function drawFrame () {
 }
 
 // TODO: Remove onMouseClickEvent listener playing (i.e. in GAME_ON)
-// TODO: Remove onKeyboardEvent listener when entering states other than GAME_ON?
+// TODO: Remove spaceDownEvent listener when entering states other than GAME_ON?
 // TODO: http://stackoverflow.com/questions/6087959/prevent-javascript-keydown-event-from-being-handled-multiple-times-while-held-do
 function enterGameState(state) {
     switch (gameState) {
@@ -99,7 +118,8 @@ function enterGameState(state) {
             drawScreen(context, 'images/start-screen.png');
             break;
         case GameStatesEnum.GAME_ON:
-            window.addEventListener('keydown', onKeyboardEvent, false);
+            window.addEventListener('keydown', spaceDownEvent, false);
+            window.addEventListener('keyup', spaceUpEvent, false);
             window.requestAnimationFrame(drawFrame, canvas);
             break;
         case GameStatesEnum.GAME_OVER:

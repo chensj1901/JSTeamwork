@@ -8,3 +8,6 @@ canvas {
     /*left: 0;*/
     /*right: 0;*/
 }
+svg{
+    position: relative;
+}
