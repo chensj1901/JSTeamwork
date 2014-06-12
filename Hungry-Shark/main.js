@@ -51,9 +51,8 @@ function spaceUpEvent (event) {
 }
 
 function onMouseClickEvent (event) {    
-    biteSound.play();
-	
 	if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
+		biteSound.play();
 		gameState = GameStatesEnum.START_SCREEN;	
 		enterGameState(gameState);	
 	}
@@ -67,21 +66,25 @@ function onMouseClickEvent (event) {
         exitChoice = (476 <= x && x <= 583) && (514 <= y && y <= 563);	
 		
     if (newGameChoice) {
+		biteSound.play();
         gameState = GameStatesEnum.GAME_ON;
         enterGameState(gameState);
     }
 
     if (highScoresChoice) {
+		biteSound.play();
         gameState = GameStatesEnum.HIGH_SCORES;
         enterGameState(gameState);
     }
 
     if (creditsChoice) {
+		biteSound.play();
         gameState = GameStatesEnum.CREDITS;
         enterGameState(gameState);
     }
 
     if (exitChoice) {
+		biteSound.play();
         gameState = GameStatesEnum.EXIT;
         enterGameState(gameState);
     }
