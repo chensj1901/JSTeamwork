@@ -4,11 +4,16 @@ this.score=0;
     this.update=function Update(){
         this.score+=1;
         if(healthBar.triggerFish()){
-            this.score+=100;
+            this.score+=500;
         }
     }
 
     this.draw = function Draw(){
-        healthBar.paper.text(400,20,"Score: "+this.score);
+        var text=healthBar.paper.text(740,20,"Score: "+Math.round(this.score/100));
+        text.attr({
+            "font-size":"20px",
+            "font-family": "Papyrus",
+            "font-weight":"bold"
+        });
     }
 }
