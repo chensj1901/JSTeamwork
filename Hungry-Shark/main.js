@@ -132,7 +132,15 @@ function enterGameState(state) {
             drawScreen(context, 'images/credits.png');
             break;
         case GameStatesEnum.EXIT:
-            alert('Exit!');
+			if (window.home) { 
+				window.home();
+			} else { 
+				if (navigator.appVersion.split('MSIE')[1] <= 7) { 
+					window.location = 'about:home';
+				} else if (window.location.href) { 
+					window.location.href = 'https://www.google.com/?hl=en';
+				}
+			}				
             break;
         default:
             break;
