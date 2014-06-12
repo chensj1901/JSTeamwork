@@ -8,7 +8,7 @@ function Shark (context, initialX, initialY) {
 	
 	// Create sprite	
 	sharkImage = new Image();	
-	sharkImage.src = "Shark-spite-40percent.png";
+	sharkImage.src = "images/shark.png";
 
 	sharkSpr = sprite({
 	context: canvas.getContext("2d"),
@@ -71,7 +71,7 @@ function Prey(context, initialX, initialY) {
     };
 
 	fishImage = new Image();	
-	fishImage.src = "Fish-sprite-40percent.png";
+	fishImage.src = "images/prey-fish.png";
 
 	fishSpr = sprite({
 		context: canvas.getContext("2d"),
