@@ -4,7 +4,7 @@ this.score=0;
     this.update=function Update(){
         this.score+=1;
         if(healthBar.triggerFish()){
-            this.score+=500;
+            this.score+=1000;
         }
     }
 
