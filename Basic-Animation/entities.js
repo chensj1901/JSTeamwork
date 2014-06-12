@@ -5,12 +5,25 @@ function Shark (context, initialX, initialY) {
     this.velocityY = 0.5;
     this.GRAVITY = 0.2;
     this.JUMP_HEIGHT = 10;
+	
+	// Create sprite	
+	sharkImage = new Image();	
+	sharkImage.src = "Shark-spite-40percent.png";
 
-    // TODO: Add shark animation - implement frequent changes between its sprites.
+	sharkSpr = sprite({
+	context: canvas.getContext("2d"),
+	width: 670,
+	height: 100,
+	x: this.x,
+	y: this.y,
+	image: sharkImage,
+	numberOfFrames: 3,
+	ticksPerFrame: 10
+	});
+
     this.draw = function () {
-        context.beginPath();
-        context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
-        context.stroke();
+	    sharkSpr.update();
+		sharkSpr.render(this.x, this.y);
     };
 
     this.update = function () {
@@ -57,12 +70,28 @@ function Prey(context, initialX, initialY) {
         }
     };
 
+	fishImage = new Image();	
+	fishImage.src = "Fish-sprite-40percent.png";
+
+	fishSpr = sprite({
+		context: canvas.getContext("2d"),
+		width: 105,
+		height: 40,
+		x: this.x,
+		y: this.y,
+		image: fishImage,
+		numberOfFrames: 2,
+		ticksPerFrame: 10
+	});
+	
     this.draw = function () {
         for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
             var currentPrey = this.preyArray[i];
-            context.beginPath();
-            context.arc(currentPrey.x, currentPrey.y, 10, 0, 2 * Math.PI); // to be replaced by sprite
-            context.stroke();
+            //context.beginPath();
+            //context.arc(currentPrey.x, currentPrey.y, 10, 0, 2 * Math.PI); // to be replaced by sprite
+            //context.stroke();
+			fishSpr.update();
+			fishSpr.render(currentPrey.x, currentPrey.y);
         }
     };
 }

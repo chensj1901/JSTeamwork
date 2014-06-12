@@ -51,17 +51,20 @@
         }
     }
 
+
     function onMouseClickEvent (event) {
         console.log(event.pageX);
     }
-
 
     // Animation
     function drawFrame () {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
+
         healthBar.update();
         healthBar.draw();
+      healthBar.draw();
+
 
         shark.update();
         shark.draw();
@@ -80,11 +83,12 @@
 
     // The main game loop
     function main() {
-        var spriteSheet = new Image();
-        spriteSheet.onload = function () {
-            initializeSprites(spriteSheet)
-        };
-        spriteSheet.src = '';
+        //var spriteSheet = new Image();
+        //spriteSheet.onload = function () {
+        //    initializeSprites(spriteSheet)
+        //};
+        //spriteSheet.src = '';
+
 
         window.addEventListener('keydown', onKeyboardEvent, false);
         window.addEventListener('click', onMouseClickEvent, false);
