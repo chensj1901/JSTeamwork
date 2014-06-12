@@ -2,9 +2,9 @@
 function Shark (context, initialX, initialY) {
     this.x = initialX;
     this.y = initialY;
-    this.velocityY = 0.5;
+    this.velocityY = 0;
     this.GRAVITY = 0.2;
-    this.JUMP_HEIGHT = 10;
+    this.JUMP_HEIGHT = 7;
 	
 	// Create sprite	
 	sharkImage = new Image();	
@@ -32,6 +32,7 @@ function Shark (context, initialX, initialY) {
     };
 
     this.jump = function () {
+        this.velocityY = 0.5;
         this.velocityY -= this.JUMP_HEIGHT;
     };
 }

@@ -32,12 +32,20 @@ function drawCanvasTopBorder (positionY) {
 
 // TODO: Add mouse events for menu navigation.
 // User interaction
-function onKeyboardEvent (event) {
+var spaceButtonDown = false;
+
+function spaceDownEvent (event) {
     if (event.keyCode === 32) {
-        shark.jump();
+        if (!spaceButtonDown) {
+            spaceButtonDown = true;
+            shark.jump();
+        }
     }
 }
 
+function spaceUpEvent (event) {
+    spaceButtonDown = false;
+}
 
 function onMouseClickEvent (event) {
     var x = event.clientX,
@@ -90,7 +98,7 @@ function drawFrame () {
 }
 
 // TODO: Remove onMouseClickEvent listener playing (i.e. in GAME_ON)
-// TODO: Remove onKeyboardEvent listener when entering states other than GAME_ON?
+// TODO: Remove spaceDownEvent listener when entering states other than GAME_ON?
 // TODO: http://stackoverflow.com/questions/6087959/prevent-javascript-keydown-event-from-being-handled-multiple-times-while-held-do
 function enterGameState(state) {
     switch (gameState) {
@@ -99,7 +107,8 @@ function enterGameState(state) {
             drawScreen(context, 'images/start-screen.png');
             break;
         case GameStatesEnum.GAME_ON:
-            window.addEventListener('keydown', onKeyboardEvent, false);
+            window.addEventListener('keydown', spaceDownEvent, false);
+            window.addEventListener('keyup', spaceUpEvent, false);
             window.requestAnimationFrame(drawFrame, canvas);
             break;
         case GameStatesEnum.GAME_OVER:
