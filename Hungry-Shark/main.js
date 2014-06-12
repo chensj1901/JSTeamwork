@@ -75,14 +75,14 @@ function drawFrame () {
 
     healthBar.update();
     healthBar.draw();
-
+  oceanFloorBackground.draw();
     shark.update();
     shark.draw();
 
     prey.update();
     prey.draw();
 
-    oceanFloorBackground.draw();
+  
     boatBackground.draw();
     drawCanvasTopBorder(40);
 

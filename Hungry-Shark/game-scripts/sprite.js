@@ -49,7 +49,7 @@ function sprite (options) {
 	that.render = function (x, y) {
 	
 	  // Clear the canvas
-	  that.context.clearRect(x, y, that.width, that.height);
+	  //that.context.clearRect(x, y, that.width, that.height);
 	  
 	  // Draw the animation
 	  that.context.drawImage(
