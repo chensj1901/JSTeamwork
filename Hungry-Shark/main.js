@@ -19,6 +19,7 @@ var shark = new Shark(context, 50, 250);
 var prey = new Prey(context, 750, 250);
 
 var healthBar = new HealthBar(300, 1, 5);
+var scores= new Scores();
 
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
@@ -81,8 +82,12 @@ function onMouseClickEvent (event) {
 function drawFrame () {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    healthBar.update();
-    healthBar.draw();
+    if (gameState == GameStatesEnum.GAME_ON) {
+        healthBar.update();
+        healthBar.draw();
+        scores.draw();
+        scores.update();
+    }
 
     shark.update();
     shark.draw();
