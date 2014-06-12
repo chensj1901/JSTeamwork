@@ -130,6 +130,10 @@ function enterGameState(state) {
             break;
         case GameStatesEnum.CREDITS:
             drawScreen(context, 'images/credits.png');
+			window.onclick = function() {
+					gameState = GameStatesEnum.START_SCREEN;	
+					enterGameState(gameState);					
+				}
             break;
         case GameStatesEnum.EXIT:
 			if (window.home) { 
