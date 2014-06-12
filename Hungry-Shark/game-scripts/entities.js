@@ -12,13 +12,13 @@ function Shark (context, initialX, initialY) {
 
 	sharkSpr = sprite({
 	context: canvas.getContext("2d"),
-	width: 670,
+	width: 840,
 	height: 100,
 	x: this.x,
 	y: this.y,
 	image: sharkImage,
 	numberOfFrames: 3,
-	ticksPerFrame: 10
+	ticksPerFrame: 8
 	});
 
     this.draw = function () {
@@ -76,7 +76,7 @@ function Prey(context, initialX, initialY) {
 
 	fishSpr = sprite({
 		context: canvas.getContext("2d"),
-		width: 105,
+		width: 130,
 		height: 40,
 		x: this.x,
 		y: this.y,
