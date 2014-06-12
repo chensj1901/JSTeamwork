@@ -21,6 +21,8 @@ var prey = new Prey(context, 750, 250);
 var healthBar = new HealthBar(300, 1, 5);
 var scores= new Scores();
 
+var biteSound = new Audio('sounds/bite.wav');
+
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
@@ -48,8 +50,10 @@ function spaceUpEvent (event) {
     spaceButtonDown = false;
 }
 
-function onMouseClickEvent (event) {
-    if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
+function onMouseClickEvent (event) {    
+    biteSound.play();
+	
+	if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
 		gameState = GameStatesEnum.START_SCREEN;	
 		enterGameState(gameState);	
 	}
