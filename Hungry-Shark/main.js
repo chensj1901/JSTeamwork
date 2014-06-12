@@ -126,7 +126,11 @@ function enterGameState(state) {
             drawScreen(context, 'images/game-over.png');
             break;
         case GameStatesEnum.HIGH_SCORES:
-            alert('High Scores!');
+            drawScreen(context, 'images/high-scores.png');
+			window.onclick = function() {
+					gameState = GameStatesEnum.START_SCREEN;	
+					enterGameState(gameState);					
+				}
             break;
         case GameStatesEnum.CREDITS:
             drawScreen(context, 'images/credits.png');
