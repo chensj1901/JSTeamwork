@@ -49,14 +49,19 @@ function spaceUpEvent (event) {
 }
 
 function onMouseClickEvent (event) {
-    var x = event.clientX,
+    if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
+		gameState = GameStatesEnum.START_SCREEN;	
+		enterGameState(gameState);	
+	}
+	
+	var x = event.clientX,
         y = event.clientY;
 
     var newGameChoice = (473 <= x && x <= 647) && (277 <= y && y <= 330),
         highScoresChoice = (516 <= x && x <= 703) && (363 <= y && y <= 416),
         creditsChoice = (535 <= x && x <= 680) && (439 <= y && y <= 488),
-        exitChoice = (476 <= x && x <= 583) && (514 <= y && y <= 563);
-
+        exitChoice = (476 <= x && x <= 583) && (514 <= y && y <= 563);	
+		
     if (newGameChoice) {
         gameState = GameStatesEnum.GAME_ON;
         enterGameState(gameState);
@@ -126,18 +131,10 @@ function enterGameState(state) {
             drawScreen(context, 'images/game-over.png');
             break;
         case GameStatesEnum.HIGH_SCORES:
-            drawScreen(context, 'images/high-scores.png');
-			window.onclick = function() {
-					gameState = GameStatesEnum.START_SCREEN;	
-					enterGameState(gameState);					
-				}
+            drawScreen(context, 'images/high-scores.png');			
             break;
         case GameStatesEnum.CREDITS:
-            drawScreen(context, 'images/credits.png');
-			window.onclick = function() {
-					gameState = GameStatesEnum.START_SCREEN;	
-					enterGameState(gameState);					
-				}
+            drawScreen(context, 'images/credits.png');			
             break;
         case GameStatesEnum.EXIT:
 			if (window.home) { 
