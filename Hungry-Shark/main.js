@@ -15,16 +15,16 @@ var gameState = GameStatesEnum.START_SCREEN;
 
 // TODO: Add game states - initial screen with instructions, game on, game over, credits.
 // Initialize objects
-var shark = new Shark(context, 50, 250);
-var prey = new Prey(context, 750, 250);
-
-var healthBar = new HealthBar(300, 1, 5);
+var shark = new Shark(context, 200, 250); //todo: must use constants
+var prey = new Prey(context, 750, 250); //todo: must use constants
+var bounds = new Bounds(context);
+var healthBar = new HealthBar(300, 1, 5); //todo: must use constants
 var scores= new Scores();
 
 var biteSound = new Audio('sounds/bite.wav');
 
-var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
-var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
+var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4); //todo: must use constants
+var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2); //todo: must use constants
 
 function drawCanvasTopBorder (positionY) {
     context.beginPath();
@@ -38,10 +38,10 @@ function drawCanvasTopBorder (positionY) {
 var spaceButtonDown = false;
 
 function spaceDownEvent (event) {
-    if (event.keyCode === 32) {
+    if (event.keyCode === 32) { //todo: may use constant
         if (!spaceButtonDown) {
             spaceButtonDown = true;
-            shark.jump();
+            shark.swim();
         }
     }
 }
@@ -109,10 +109,12 @@ function drawFrame () {
     shark.update();
     shark.draw();
 
+    sharkCollides(shark);
+    sharkEats(shark, prey);
+
     prey.update();
     prey.draw();
 
-  
     boatBackground.draw();
     drawCanvasTopBorder(40);
 

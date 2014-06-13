@@ -5,7 +5,7 @@ function Shark (context, initialX, initialY) {
     this.velocityY = 0;
     this.GRAVITY = 0.2;
     this.JUMP_HEIGHT = 7;
-	
+
 	// Create sprite	
 	sharkImage = new Image();	
 	sharkImage.src = "images/shark.png";
@@ -31,7 +31,7 @@ function Shark (context, initialX, initialY) {
         this.velocityY += this.GRAVITY;
     };
 
-    this.jump = function () {
+    this.swim = function () {
         this.velocityY = 0.5;
         this.velocityY -= this.JUMP_HEIGHT;
     };
@@ -40,8 +40,7 @@ function Shark (context, initialX, initialY) {
 function Prey(context, initialX, initialY) {
     this.preyArray = [];
 
-    // TODO: Prey needs to be an array of small fish with random positions.
-    // TODO: Prey fish need to be removed from the array when eaten (collision detection) or when outside canvas.
+
     this.x = initialX;
     this.y = initialY;
     this.VELOCITY_X = 2;
@@ -49,13 +48,12 @@ function Prey(context, initialX, initialY) {
     this.update = function () {
         this.x -= this.VELOCITY_X;
         this.generatePreyFrequency+=1;
-        if(this.generatePreyFrequency === 150) {
-            var newPreyY = Math.floor(Math.random() * (560 - 20) + 60);
+        if(this.generatePreyFrequency === 150) { //todo: must use constant
+            var newPreyY = Math.floor(Math.random() * (560 - 20) + 60); //todo: must use constants
             this.preyArray.push({
                 x: initialX,
-                y: newPreyY
-                // height: 50,
-                // width: 50
+                y: newPreyY,
+                isEaten: false
             });
             this.generatePreyFrequency = 0;
         }
@@ -63,7 +61,7 @@ function Prey(context, initialX, initialY) {
         for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
             var currentPrey = this.preyArray[i];
             currentPrey.x-= this.VELOCITY_X;
-            if (currentPrey.x < 100) { //100 to be changed to 0, now stays for testing purposes
+            if (currentPrey.x < 50 || currentPrey.isEaten === true) {
                 this.preyArray.splice(i, 1);
                 i-=1;
                 len-=1;
@@ -88,9 +86,6 @@ function Prey(context, initialX, initialY) {
     this.draw = function () {
         for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
             var currentPrey = this.preyArray[i];
-            //context.beginPath();
-            //context.arc(currentPrey.x, currentPrey.y, 10, 0, 2 * Math.PI); // to be replaced by sprite
-            //context.stroke();
 			fishSpr.update();
 			fishSpr.render(currentPrey.x, currentPrey.y);
         }
@@ -118,4 +113,9 @@ function BackgroundFeature (context, imageSource, positionY, velocityX) {
 
         this.x -= velocityX;
     };
+}
+
+function Bounds(context){
+    this.minY = 60;
+    this.maxY = 590;
 }
