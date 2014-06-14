@@ -12,8 +12,6 @@ var GameStatesEnum = {
 
 var gameState = GameStatesEnum.START_SCREEN;
 
-
-// TODO: Add game states - initial screen with instructions, game on, game over, credits.
 // Initialize objects
 var shark = new Shark(context, 50, 250);
 var prey = new Prey(context, 750, 250);
@@ -26,14 +24,7 @@ var biteSound = new Audio('sounds/bite.wav');
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
-function drawCanvasTopBorder (positionY) {
-    context.beginPath();
-    context.moveTo(0, positionY);
-    context.lineTo(canvas.width, positionY);
-    context.stroke();
-}
 
-// TODO: Add mouse events for menu navigation.
 // User interaction
 var spaceButtonDown = false;
 
@@ -57,8 +48,8 @@ function onMouseClickEvent (event) {
 		enterGameState(gameState);	
 	}
 	
-	var x = event.clientX,
-        y = event.clientY;
+	var x = event.offsetX,
+        y = event.offsetY;
 
     var newGameChoice = (473 <= x && x <= 647) && (277 <= y && y <= 330),
         highScoresChoice = (516 <= x && x <= 703) && (363 <= y && y <= 416),
@@ -90,13 +81,20 @@ function onMouseClickEvent (event) {
     }
 }
 
-// Animation
+// Drawing and animation
+function drawCanvasTopBorder (positionY) {
+    context.beginPath();
+    context.moveTo(0, positionY);
+    context.lineTo(canvas.width, positionY);
+    context.stroke();
+}
+
 function drawFrame () {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
 
-    healthBar.update();
-    healthBar.draw();
+//    healthBar.update();
+//    healthBar.draw();
   oceanFloorBackground.draw();
 
     if (gameState == GameStatesEnum.GAME_ON) {
@@ -112,16 +110,13 @@ function drawFrame () {
     prey.update();
     prey.draw();
 
-  
+
     boatBackground.draw();
     drawCanvasTopBorder(40);
 
     window.requestAnimationFrame(drawFrame, canvas);
 }
 
-// TODO: Remove onMouseClickEvent listener playing (i.e. in GAME_ON)
-// TODO: Remove spaceDownEvent listener when entering states other than GAME_ON?
-// TODO: http://stackoverflow.com/questions/6087959/prevent-javascript-keydown-event-from-being-handled-multiple-times-while-held-do
 function enterGameState(state) {
     switch (gameState) {
         case GameStatesEnum.START_SCREEN:
