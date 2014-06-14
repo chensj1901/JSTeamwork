@@ -29,6 +29,10 @@ function Shark (context, initialX, initialY) {
     this.update = function () {
         this.y += this.velocityY;
         this.velocityY += this.GRAVITY;
+        if  (this.outOfBounds()){
+           //var gameStateDueToSharkOut = GameStatesEnum.GAME_OVER;
+           // enterGameState(gameStateDueToSharkOut);
+        }
     };
 
     this.jump = function () {
@@ -36,14 +40,14 @@ function Shark (context, initialX, initialY) {
         this.velocityY -= this.JUMP_HEIGHT;
     };
 
-    this.collides = function(){
-        if( this.y < 60 && this.y > 580 ) //TODO: must use constants;
+    this.outOfBounds = function(){
+        if( this.y < 60 && this.y > 570 ) //TODO: must use constants;
         {
           //  console.log('shark must be dead');
-           // return false;
+            return true;
         }else{
          //   console.log('shark must be alive');
-            //return true;
+            return false;
         }
 
     }
@@ -51,8 +55,6 @@ function Shark (context, initialX, initialY) {
 
 function Prey(context, initialX, initialY) {
     this.preyArray = [];
-
-    // TODO: Prey needs to be an array of small fish with random positions.
     this.x = initialX;
     this.y = initialY;
     this.VELOCITY_X = 2;
@@ -61,11 +63,11 @@ function Prey(context, initialX, initialY) {
         this.x -= this.VELOCITY_X;
         this.generatePreyFrequency+=1;
         if (this.generatePreyFrequency === 150) {
-            var newPreyY = Math.floor(Math.random() * (560 - 20) + 60);
+            var newPreyY = Math.floor(Math.random() * (540 - 20) + 60);
             this.preyArray.push({
                 x: initialX,
                 y: newPreyY,
-                collides: function () {
+                isEaten: function () {
                     if ((this.x > 250 && this.x < 330) && (shark.y <= this.y) && (shark.y + 40 >= this.y)) { //shark range widened for testing;
                         //var bite = new Audio('sounds/bite.wav');
                         //bite.Play();
@@ -81,21 +83,14 @@ function Prey(context, initialX, initialY) {
         for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
             var currentPrey = this.preyArray[i];
             currentPrey.x-= this.VELOCITY_X;
-            if ((currentPrey.x < 100)|| (currentPrey.collides())) { //100 to be changed to 0, now stays for testing purposes
+            if ((currentPrey.x < 100)|| (currentPrey.isEaten())) { //100 to be changed to 0, now stays for testing purposes
                 this.preyArray.splice(i, 1);
                 i-=1;
                 len-=1;
             }
-
-        }
-        this.collides = function(){
-            if ((currentPrey.x > 250 && currentPrey.x < 350) && (shark.y-100 <= currentPrey.y) && (shark.y+100 >= currentPrey.y)){ //shark range widened for testing;
-                var bite = new Audio('sounds/bite.wav');
-                bite.Play();
-                return true;
-            }else{
-                return false;
-            }
+            //if (currentPrey.isEaten()){ todo: must be implemented
+              //  healthBar.triggerFish();
+            //}
         }
     };
 

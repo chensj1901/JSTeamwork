@@ -16,7 +16,7 @@ var gameState = GameStatesEnum.START_SCREEN;
 var shark = new Shark(context, 150, 250);
 var prey = new Prey(context, 750, 250);
 
-var healthBar = new HealthBar(300, 1, 5);
+var healthBar = new HealthBar(3000, 1, 500);
 var scores= new Scores();
 
 var biteSound = new Audio('sounds/bite.wav');
@@ -103,7 +103,6 @@ function drawFrame () {
         scores.draw();
         scores.update();
     }
-    shark.collides();
     shark.update();
     shark.draw();
 
@@ -130,6 +129,7 @@ function enterGameState(state) {
             break;
         case GameStatesEnum.GAME_OVER:
             window.addEventListener('click', onMouseClickEvent, false);
+            //todo: to add a variable change event listener!!
             drawScreen(context, 'images/game-over.png');
             break;
         case GameStatesEnum.HIGH_SCORES:

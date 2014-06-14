@@ -20,8 +20,9 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
             //console.log("Dead");
         }
         //Logic when we eat a fish
-        if (this.triggerFish()) {
+        if (this.triggerFish) {
             this.currentHP += this.fishIncrementHP;
+            //toDo:  must turn value back to false?
           //  console.log("The Shark ate a fish")
         }
         //if we have more hp than we should;
@@ -30,10 +31,10 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
         }
         this.percentageHP = this.currentHP / this.maxHP;
     };
-    //TODO: eat Fish Trigger --> this is a sample randomizer for fish eating.
-    this.triggerFish=function()  {
-        var randomFishTrigger = Math.random() * 100;
-        if (randomFishTrigger <= 10) {
+
+    this.triggerFish = function()  {
+       var randomFishTrigger = Math.random() * 100;//TODO: eat Fish Trigger --> this is a sample randomizer for fish eating.
+       if (randomFishTrigger <= 10) {
             return true;
         }
         else {

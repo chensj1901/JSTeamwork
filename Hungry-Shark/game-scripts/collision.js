@@ -1,6 +1,6 @@
 /**
  * Created by admin on 13-Jun-14.
- */
+
 function sharkEats(shark, prey){
     for(var i; i < prey.length; i+=1) {
         var currentPrey = prey[i];
@@ -31,3 +31,4 @@ function sharkCollides(shark){
     }
 
 };
+ */
