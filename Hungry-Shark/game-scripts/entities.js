@@ -35,13 +35,24 @@ function Shark (context, initialX, initialY) {
         this.velocityY = 0.5;
         this.velocityY -= this.JUMP_HEIGHT;
     };
+
+    this.collides = function(){
+        if( this.y < 60 && this.y > 580 ) //TODO: must use constants;
+        {
+          //  console.log('shark must be dead');
+           // return false;
+        }else{
+         //   console.log('shark must be alive');
+            //return true;
+        }
+
+    }
 }
 
 function Prey(context, initialX, initialY) {
     this.preyArray = [];
 
     // TODO: Prey needs to be an array of small fish with random positions.
-    // TODO: Prey fish need to be removed from the array when eaten (collision detection) or when outside canvas.
     this.x = initialX;
     this.y = initialY;
     this.VELOCITY_X = 2;
@@ -49,24 +60,41 @@ function Prey(context, initialX, initialY) {
     this.update = function () {
         this.x -= this.VELOCITY_X;
         this.generatePreyFrequency+=1;
-        if(this.generatePreyFrequency === 150) {
+        if (this.generatePreyFrequency === 150) {
             var newPreyY = Math.floor(Math.random() * (560 - 20) + 60);
             this.preyArray.push({
                 x: initialX,
-                y: newPreyY
-                // height: 50,
-                // width: 50
-            });
-            this.generatePreyFrequency = 0;
+                y: newPreyY,
+                collides: function () {
+                    if ((this.x > 250 && this.x < 330) && (shark.y <= this.y) && (shark.y + 40 >= this.y)) { //shark range widened for testing;
+                        //var bite = new Audio('sounds/bite.wav');
+                        //bite.Play();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            })
+                this.generatePreyFrequency = 0;
         }
 
         for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
             var currentPrey = this.preyArray[i];
             currentPrey.x-= this.VELOCITY_X;
-            if (currentPrey.x < 100) { //100 to be changed to 0, now stays for testing purposes
+            if ((currentPrey.x < 100)|| (currentPrey.collides())) { //100 to be changed to 0, now stays for testing purposes
                 this.preyArray.splice(i, 1);
                 i-=1;
                 len-=1;
+            }
+
+        }
+        this.collides = function(){
+            if ((currentPrey.x > 250 && currentPrey.x < 350) && (shark.y-100 <= currentPrey.y) && (shark.y+100 >= currentPrey.y)){ //shark range widened for testing;
+                var bite = new Audio('sounds/bite.wav');
+                bite.Play();
+                return true;
+            }else{
+                return false;
             }
         }
     };
@@ -88,9 +116,6 @@ function Prey(context, initialX, initialY) {
     this.draw = function () {
         for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
             var currentPrey = this.preyArray[i];
-            //context.beginPath();
-            //context.arc(currentPrey.x, currentPrey.y, 10, 0, 2 * Math.PI); // to be replaced by sprite
-            //context.stroke();
 			fishSpr.update();
 			fishSpr.render(currentPrey.x, currentPrey.y);
         }

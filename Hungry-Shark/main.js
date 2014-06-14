@@ -13,7 +13,7 @@ var GameStatesEnum = {
 var gameState = GameStatesEnum.START_SCREEN;
 
 // Initialize objects
-var shark = new Shark(context, 50, 250);
+var shark = new Shark(context, 150, 250);
 var prey = new Prey(context, 750, 250);
 
 var healthBar = new HealthBar(300, 1, 5);
@@ -103,7 +103,7 @@ function drawFrame () {
         scores.draw();
         scores.update();
     }
-
+    shark.collides();
     shark.update();
     shark.draw();
 
