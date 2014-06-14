@@ -4,14 +4,20 @@
 function sharkEats(shark, prey){
     for(var i; i < prey.length; i+=1) {
         var currentPrey = prey[i];
+        
 
         if ((currentPrey.x >250 && currentPrey.x < 350)&& (shark.y-100 <= currentPrey.y) && (shark.y+100 >= currentPrey.y)){
+            var bite = new Audio('sounds/bite.wav');
+            bite.Play();
             currentPrey.isEaten = true;
             //ToDo: health-bar update;
             //ToDo: score update;
+            
         }
         prey[i]= currentPrey;
+
     }
+
     return prey;
 }
 function sharkCollides(shark){

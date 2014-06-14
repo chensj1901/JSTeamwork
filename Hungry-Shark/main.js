@@ -52,7 +52,7 @@ function spaceUpEvent (event) {
 
 function onMouseClickEvent (event) {    
 	if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
-		biteSound.play();
+		//biteSound.play();
 		gameState = GameStatesEnum.START_SCREEN;	
 		enterGameState(gameState);	
 	}
