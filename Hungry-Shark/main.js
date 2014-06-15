@@ -78,6 +78,12 @@ function drawCanvasTopBorder (positionY) {
 }
 
 function drawFrame () {
+    if( shark.y < 60 || shark.y > 700 ) {
+        console.log('over');
+        gameState = GameStatesEnum.GAME_OVER;
+        enterGameState(gameState);
+    }
+
     if (gameState === GameStatesEnum.GAME_ON) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         oceanFloorBackground.draw();
@@ -93,12 +99,6 @@ function drawFrame () {
         drawCanvasTopBorder(40);
 
         window.requestAnimationFrame(drawFrame, canvas);
-    }
-
-    if( shark.y < 60 || shark.y > 570 ) {
-        console.log('over');
-        gameState = GameStatesEnum.GAME_OVER;
-        enterGameState(gameState);
     }
 }
 
@@ -126,7 +126,6 @@ function enterGameState(gameState) {
             window.requestAnimationFrame(drawFrame, canvas);
             break;
         case GameStatesEnum.GAME_OVER:
-            window.addEventListener('click', onMouseClickEvent, false);
             drawScreen(context, 'images/game-over.png');
             break;
         case GameStatesEnum.HIGH_SCORES:
