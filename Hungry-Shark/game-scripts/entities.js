@@ -41,11 +41,11 @@ function Prey(context, initialX, initialY) {
     this.preyArray = [];
     this.x = initialX;
     this.y = initialY;
-    this.VELOCITY_X = 2;
+    this.VELOCITY_X = 5;
     this.generatePreyFrequency = 0;
     this.update = function () {
         this.x -= this.VELOCITY_X;
-        this.generatePreyFrequency+=1;
+        this.generatePreyFrequency+=5;
         if (this.generatePreyFrequency === 150) {
             var newPreyY = Math.floor(Math.random() * (540 - 20) + 60);
             this.preyArray.push({
@@ -53,8 +53,6 @@ function Prey(context, initialX, initialY) {
                 y: newPreyY,
                 isEaten: function () {
                     if ((this.x > 250 && this.x < 330) && (shark.y <= this.y) && (shark.y + 40 >= this.y)) { //shark range widened for testing;
-                        //var bite = new Audio('sounds/bite.wav');
-                        //bite.Play();
                         return true;
                     } else {
                         return false;
@@ -67,14 +65,14 @@ function Prey(context, initialX, initialY) {
         for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
             var currentPrey = this.preyArray[i];
             currentPrey.x-= this.VELOCITY_X;
-            if ((currentPrey.x < 100)|| (currentPrey.isEaten())) { //100 to be changed to 0, now stays for testing purposes
+            if ((currentPrey.x <0)|| (currentPrey.isEaten())) {
                 this.preyArray.splice(i, 1);
                 i-=1;
                 len-=1;
             }
             if (currentPrey.isEaten()){
+                biteSound.play();
                 healthBar.isFishEaten=true;
-                Scores.shouldIncreaseScore=true;
             }
         }
     };

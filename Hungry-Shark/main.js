@@ -4,9 +4,15 @@ var canvas = document.getElementById("animation-canvas"),
 // Initialize objects
 var shark = new Shark(context, 150, 250);
 var prey = new Prey(context, 750, 250);
-var healthBar = new HealthBar(3000, 3, 500);
+
+var healthBar = new HealthBar(3000, 5, 330);
 var scores= new Scores();
+
 var biteSound = new Audio('sounds/bite.wav');
+var gameOverSound=new Audio('sounds/game_Over.wav');
+var backgroundSong = new Audio('sounds/main.mp3');
+backgroundSong.loop=true;
+
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
@@ -83,9 +89,10 @@ function drawCanvasTopBorder (positionY) {
 function drawFrame () {
 	if (gameState === GameStatesEnum.GAME_ON) {
 			if(resetShark) {
+                backgroundSong.play();
 				resetShark = false;
 				shark = new Shark(context, 150, 250);
-				healthBar = new HealthBar(3000, 3, 500);
+				healthBar = new HealthBar(3000, 5, 330);
 				scores = new Scores();
 			}
 			context.clearRect(0, 0, canvas.width, canvas.height);
@@ -104,10 +111,13 @@ function drawFrame () {
 			window.requestAnimationFrame(drawFrame, canvas);
 	}
 
-	if( shark.y < 40 || shark.y > 570 ) {
+	if( shark.y < 40 || shark.y > 570 || healthBar.currentHP<=0 ) {
 		console.log('over');
+        backgroundSong.pause();
+        gameOverSound.play();
 		gameState = GameStatesEnum.GAME_OVER;
 		enterGameState(gameState);
+        healthBar.paper.remove();
 	}
 }
 

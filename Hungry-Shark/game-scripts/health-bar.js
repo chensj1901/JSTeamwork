@@ -15,8 +15,6 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
         //check if we are dead
         if (this.currentHP <= 0) {
             this.constantHPRectangleWidth = 0;
-            //This Below is not working for some reason
-          //  main.gameState=main.gameState.GAME_OVER;
         }
         //Logic when we eat a fish
         if (this.isFishEaten) {
