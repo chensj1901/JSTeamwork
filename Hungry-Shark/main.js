@@ -78,25 +78,28 @@ function drawCanvasTopBorder (positionY) {
 }
 
 function drawFrame () {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    oceanFloorBackground.draw();
-    shark.update();
-    shark.draw();
-    prey.update();
-    prey.draw();
-
     if (gameState === GameStatesEnum.GAME_ON) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        oceanFloorBackground.draw();
+        shark.update();
+        shark.draw();
+        prey.update();
+        prey.draw();
         healthBar.update();
         healthBar.draw();
         scores.update();
         scores.draw();
+        boatBackground.draw();
+        drawCanvasTopBorder(40);
 
+        window.requestAnimationFrame(drawFrame, canvas);
     }
 
-    boatBackground.draw();
-    drawCanvasTopBorder(40);
-
-    window.requestAnimationFrame(drawFrame, canvas);
+    if( shark.y < 60 || shark.y > 570 ) {
+        console.log('over');
+        gameState = GameStatesEnum.GAME_OVER;
+        enterGameState(gameState);
+    }
 }
 
 // Game states
@@ -124,7 +127,6 @@ function enterGameState(gameState) {
             break;
         case GameStatesEnum.GAME_OVER:
             window.addEventListener('click', onMouseClickEvent, false);
-            //todo: to add a variable change event listener!!
             drawScreen(context, 'images/game-over.png');
             break;
         case GameStatesEnum.HIGH_SCORES:

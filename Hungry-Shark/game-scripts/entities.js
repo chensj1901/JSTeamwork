@@ -29,28 +29,12 @@ function Shark (context, initialX, initialY) {
     this.update = function () {
         this.y += this.velocityY;
         this.velocityY += this.GRAVITY;
-        if  (this.outOfBounds()){
-           //var gameStateDueToSharkOut = GameStatesEnum.GAME_OVER;
-           // enterGameState(gameStateDueToSharkOut);
-        }
     };
 
     this.jump = function () {
         this.velocityY = 0.5;
         this.velocityY -= this.JUMP_HEIGHT;
     };
-
-    this.outOfBounds = function(){
-        if( this.y < 60 && this.y > 570 ) //TODO: must use constants;
-        {
-          //  console.log('shark must be dead');
-            return true;
-        }else{
-         //   console.log('shark must be alive');
-            return false;
-        }
-
-    }
 }
 
 function Prey(context, initialX, initialY) {
