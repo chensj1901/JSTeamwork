@@ -12,7 +12,7 @@ var $drawHighScore;
 var $body = $('body');
 
 var bloodImage = new Image();
-bloodImage.src='images/Blood.png'
+bloodImage.src='images/blood.png'
 
 var biteSound = new Audio('sounds/bite.wav');
 var gameOverSound=new Audio('sounds/game_Over.wav');
@@ -33,11 +33,20 @@ function onMouseClickEvent (event) {
         enterGameState(gameState);
     }
 
-    // var x = event.offsetX,
-    // y = event.offsetY;
+    var x, y;
+    if (event.pageX || event.pageY) {
+        x = event.pageX;
+        y = event.pageY;
+    } else {
+        x = event.clientX + document.body.scrollLeft +
+            document.documentElement.scrollLeft;
+        y = event.clientY + document.body.scrollTop +
+            document.documentElement.scrollTop;
 
-	var x = event.hasOwnProperty('offsetX') ? event.offsetX : event.layerX;
-	var y = event.hasOwnProperty('offsetY') ? event.offsetY : event.layerY;
+    }
+    x -= canvas.offsetLeft;
+    y -= canvas.offsetTop;
+
 	
     var newGameChoice = (473 <= x && x <= 647) && (277 <= y && y <= 330),
         highScoresChoice = (516 <= x && x <= 703) && (363 <= y && y <= 416),
@@ -95,29 +104,29 @@ function drawCanvasTopBorder (positionY) {
 
 function drawFrame () {
 	if (gameState === GameStatesEnum.GAME_ON) {
-			if(resetShark) {
-                backgroundSong.play();
-				resetShark = false;
-                prey.preyArray=[];
-				shark = new Shark(context, 150, 250);
-				healthBar = new HealthBar(3000, 6, 330);
-				scores = new Scores();
-			}
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			oceanFloorBackground.draw();
-			shark.update();
-			shark.draw();
-			prey.update();
-			prey.draw();
-			healthBar.update();
-			healthBar.draw();
-			scores.update();
-			scores.draw();
-			boatBackground.draw();
+        if(resetShark) {
+            backgroundSong.play();
+            resetShark = false;
+            prey.preyArray=[];
+            shark = new Shark(context, 150, 250);
+            healthBar = new HealthBar(3000, 6, 330);
+            scores = new Scores();
+        }
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        oceanFloorBackground.draw();
+        shark.update();
+        shark.draw();
+        prey.update();
+        prey.draw();
+        healthBar.update();
+        healthBar.draw();
+        scores.update();
+        scores.draw();
+        boatBackground.draw();
 
-			drawCanvasTopBorder(40);
+        drawCanvasTopBorder(40);
 
-			window.requestAnimationFrame(drawFrame, canvas);
+        window.requestAnimationFrame(drawFrame, canvas);
 	}
 
 	if( shark.y < 40 || shark.y > 570 || healthBar.currentHP<=0 ) {
@@ -161,7 +170,7 @@ function enterGameState(gameState) {
             drawScreen(context, 'images/game-over.png');
             break;
         case GameStatesEnum.HIGH_SCORES:
-            drawScreen(context, 'images/HighScores.png');
+            drawScreen(context, 'images/high-scores.png');
             $drawHighScore=$("<span>").text(Math.round(highScore/100));
             $drawHighScore.offset({top:canvas.offsetTop+150,left:canvas.offsetLeft+260});
             $body.append($drawHighScore);
