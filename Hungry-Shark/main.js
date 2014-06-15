@@ -100,7 +100,7 @@ function drawFrame () {
 				resetShark = false;
                 prey.preyArray=[];
 				shark = new Shark(context, 150, 250);
-				healthBar = new HealthBar(3000, 5, 330);
+				healthBar = new HealthBar(3000, 6, 330);
 				scores = new Scores();
 			}
 			context.clearRect(0, 0, canvas.width, canvas.height);
