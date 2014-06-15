@@ -10,9 +10,6 @@ var biteSound = new Audio('sounds/bite.wav');
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
-var resetShark = true;
-var fps = 5;
-
 // User interaction
 function onMouseClickEvent (event) {
     if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
@@ -35,7 +32,6 @@ function onMouseClickEvent (event) {
     if (newGameChoice) {
         biteSound.play();		
         gameState = GameStatesEnum.GAME_ON;
-		resetShark = true;
         enterGameState(gameState);
     }
 
@@ -82,36 +78,28 @@ function drawCanvasTopBorder (positionY) {
 }
 
 function drawFrame () {
-	setInterval(function() {
-		if (gameState === GameStatesEnum.GAME_ON) {
-				if(resetShark) {
-					resetShark = false;
-					shark = new Shark(context, 150, 250);
-					healthBar = new HealthBar(3000, 3, 500);
-					scores = new Scores();
-				}
-				context.clearRect(0, 0, canvas.width, canvas.height);
-				oceanFloorBackground.draw();
-				shark.update();
-				shark.draw();
-				prey.update();
-				prey.draw();
-				healthBar.update();
-				healthBar.draw();
-				scores.update();
-				scores.draw();
-				boatBackground.draw();
-				drawCanvasTopBorder(40);
+    if (gameState === GameStatesEnum.GAME_ON) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        oceanFloorBackground.draw();
+        shark.update();
+        shark.draw();
+        prey.update();
+        prey.draw();
+        healthBar.update();
+        healthBar.draw();
+        scores.update();
+        scores.draw();
+        boatBackground.draw();
+        drawCanvasTopBorder(40);
 
-				window.requestAnimationFrame(drawFrame, canvas);
-		}
+        window.requestAnimationFrame(drawFrame, canvas);
+    }
 
-		if( shark.y < 40 || shark.y > 570 ) {
-			console.log('over');
-			gameState = GameStatesEnum.GAME_OVER;
-			enterGameState(gameState);
-		}
-	}, 1000 / fps);
+    if( shark.y < 60 || shark.y > 570 ) {
+        console.log('over');
+        gameState = GameStatesEnum.GAME_OVER;
+        enterGameState(gameState);
+    }
 }
 
 // Game states
