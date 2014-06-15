@@ -18,21 +18,24 @@ function onMouseClickEvent (event) {
         enterGameState(gameState);
     }
 
-    var x = event.offsetX,
-        y = event.offsetY;
+    // var x = event.offsetX,
+    // y = event.offsetY;
 
+	var x = event.hasOwnProperty('offsetX') ? event.offsetX : event.layerX;
+	var y = event.hasOwnProperty('offsetY') ? event.offsetY : event.layerY;
+	
     var newGameChoice = (473 <= x && x <= 647) && (277 <= y && y <= 330),
         highScoresChoice = (516 <= x && x <= 703) && (363 <= y && y <= 416),
         creditsChoice = (535 <= x && x <= 680) && (439 <= y && y <= 488),
         exitChoice = (476 <= x && x <= 583) && (514 <= y && y <= 563);
 
     if (newGameChoice) {
-        biteSound.play();
+        biteSound.play();		
         gameState = GameStatesEnum.GAME_ON;
         enterGameState(gameState);
     }
 
-    if (highScoresChoice) {
+    if (highScoresChoice) {	
         biteSound.play();
         gameState = GameStatesEnum.HIGH_SCORES;
         enterGameState(gameState);
