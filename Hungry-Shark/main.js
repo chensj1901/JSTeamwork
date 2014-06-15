@@ -16,7 +16,7 @@ var gameState = GameStatesEnum.START_SCREEN;
 var shark = new Shark(context, 150, 250);
 var prey = new Prey(context, 750, 250);
 
-var healthBar = new HealthBar(3000, 3, 500);
+var healthBar = new HealthBar(3000, 10, 500);
 var scores= new Scores();
 
 var biteSound = new Audio('sounds/bite.wav');

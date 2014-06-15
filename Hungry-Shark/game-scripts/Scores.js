@@ -7,7 +7,7 @@ this.shouldIncreaseScore=false;
         if(healthBar.isFishEaten){
             this.score+=5000;
         }
-        healthBar.isFishEaten=false;
+        healthBar.isFishEaten=false; //hack to make scores work...
     }
 
     this.draw = function Draw(){
