@@ -88,9 +88,9 @@ function Prey(context, initialX, initialY) {
                 i-=1;
                 len-=1;
             }
-            //if (currentPrey.isEaten()){ todo: must be implemented
-              //  healthBar.triggerFish();
-            //}
+            if (currentPrey.isEaten()){
+                healthBar.isFishEaten=true;
+            }
         }
     };
 

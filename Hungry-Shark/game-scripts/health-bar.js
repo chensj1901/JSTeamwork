@@ -6,10 +6,8 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
     this.constantDecreaseHP = constantDecreasehp; //tested with 1
     this.fishIncrementHP = fishIncrementhp;
     this.paper = Raphael(canvas.offsetLeft, canvas.offsetTop, 900, 50);
-
     this.constantHPRectangleWidth = 334;
-
-
+    this.isFishEaten = false;
 
     this.update=function(){
         //decreasing currentHP a fixed amount each frame
@@ -20,26 +18,15 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
             //console.log("Dead");
         }
         //Logic when we eat a fish
-        if (this.triggerFish) {
+        if (this.isFishEaten) {
             this.currentHP += this.fishIncrementHP;
-            //toDo:  must turn value back to false?
-          //  console.log("The Shark ate a fish")
         }
         //if we have more hp than we should;
         if (this.currentHP > this.maxHP) {
             this.currentHP = this.maxHP;
         }
         this.percentageHP = this.currentHP / this.maxHP;
-    };
-
-    this.triggerFish = function()  {
-       var randomFishTrigger = Math.random() * 100;//TODO: eat Fish Trigger --> this is a sample randomizer for fish eating.
-       if (randomFishTrigger <= 10) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        this.isFishEaten=false;
     };
 
     this.draw=function() {

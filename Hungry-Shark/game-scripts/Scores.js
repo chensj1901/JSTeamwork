@@ -2,10 +2,7 @@ function Scores(){
 this.score=0;
 
     this.update=function Update(){
-        this.score+=1;
-        if(healthBar.triggerFish()){
-            this.score+=1000;
-        }
+        this.score+=10;
     }
 
     this.draw = function Draw(){
