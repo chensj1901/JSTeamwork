@@ -1,7 +1,7 @@
 canvas {
     display: block;
     border: 1px solid #000;
-    position: relative;
+    position: absolute;
     margin: auto;
     top: 0;
     bottom: 0;

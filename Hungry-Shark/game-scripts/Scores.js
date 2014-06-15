@@ -1,8 +1,13 @@
 function Scores(){
 this.score=0;
-
+this.shouldIncreaseScore=false;
     this.update=function Update(){
         this.score+=10;
+
+        if(healthBar.isFishEaten){
+            this.score+=5000;
+        }
+        healthBar.isFishEaten=false;
     }
 
     this.draw = function Draw(){

@@ -26,7 +26,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
             this.currentHP = this.maxHP;
         }
         this.percentageHP = this.currentHP / this.maxHP;
-        this.isFishEaten=false;
+
     };
 
     this.draw=function() {

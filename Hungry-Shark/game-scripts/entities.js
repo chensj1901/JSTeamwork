@@ -90,6 +90,7 @@ function Prey(context, initialX, initialY) {
             }
             if (currentPrey.isEaten()){
                 healthBar.isFishEaten=true;
+                Scores.shouldIncreaseScore=true;
             }
         }
     };
@@ -116,8 +117,6 @@ function Prey(context, initialX, initialY) {
         }
     };
 }
-// TODO: Add health bar animation (create object which will be updated and drawn).
-
 function BackgroundFeature (context, imageSource, positionY, velocityX) {
     this.image = new Image();
     this.image.src = imageSource;

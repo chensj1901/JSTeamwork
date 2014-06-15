@@ -92,20 +92,21 @@ function drawCanvasTopBorder (positionY) {
 function drawFrame () {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-  oceanFloorBackground.draw();
+    oceanFloorBackground.draw();
 
-    if (gameState == GameStatesEnum.GAME_ON) {
-        healthBar.update();
-        healthBar.draw();
-        scores.draw();
-        scores.update();
-    }
     shark.update();
     shark.draw();
 
     prey.update();
     prey.draw();
 
+    if (gameState == GameStatesEnum.GAME_ON) {
+        healthBar.update();
+        healthBar.draw();
+        scores.update();
+        scores.draw();
+
+    }
 
     boatBackground.draw();
     drawCanvasTopBorder(40);
