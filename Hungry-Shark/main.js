@@ -10,56 +10,6 @@ var biteSound = new Audio('sounds/bite.wav');
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
-// Game states
-var GameStatesEnum = {
-    START_SCREEN: 0,
-    GAME_ON: 1,
-    GAME_OVER: 2,
-    HIGH_SCORES: 3,
-    CREDITS: 4,
-    EXIT: 5
-};
-
-var gameState = GameStatesEnum.START_SCREEN;
-
-function enterGameState(gameState) {
-    switch (gameState) {
-        case GameStatesEnum.START_SCREEN:
-            window.addEventListener('click', onMouseClickEvent, false);
-            drawScreen(context, 'images/start-screen.png');
-            break;
-        case GameStatesEnum.GAME_ON:
-            window.addEventListener('keydown', spaceDownEvent, false);
-            window.addEventListener('keyup', spaceUpEvent, false);
-            window.requestAnimationFrame(drawFrame, canvas);
-            break;
-        case GameStatesEnum.GAME_OVER:
-            window.addEventListener('click', onMouseClickEvent, false);
-            //todo: to add a variable change event listener!!
-            drawScreen(context, 'images/game-over.png');
-            break;
-        case GameStatesEnum.HIGH_SCORES:
-            drawScreen(context, 'images/high-scores.png');
-            break;
-        case GameStatesEnum.CREDITS:
-            drawScreen(context, 'images/credits.png');
-            break;
-        case GameStatesEnum.EXIT:
-            if (window.home) {
-                window.home();
-            } else {
-                if (navigator.appVersion.split('MSIE')[1] <= 7) {
-                    window.location = 'about:home';
-                } else if (window.location.href) {
-                    window.location.href = 'https://www.google.com/?hl=en';
-                }
-            }
-            break;
-        default:
-            break;
-    }
-}
-
 // User interaction
 function onMouseClickEvent (event) {
     if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
@@ -144,6 +94,56 @@ function drawFrame () {
     drawCanvasTopBorder(40);
 
     window.requestAnimationFrame(drawFrame, canvas);
+}
+
+// Game states
+var GameStatesEnum = {
+    START_SCREEN: 0,
+    GAME_ON: 1,
+    GAME_OVER: 2,
+    HIGH_SCORES: 3,
+    CREDITS: 4,
+    EXIT: 5
+};
+
+var gameState = GameStatesEnum.START_SCREEN;
+
+function enterGameState(gameState) {
+    switch (gameState) {
+        case GameStatesEnum.START_SCREEN:
+            window.addEventListener('click', onMouseClickEvent, false);
+            drawScreen(context, 'images/start-screen.png');
+            break;
+        case GameStatesEnum.GAME_ON:
+            window.addEventListener('keydown', spaceDownEvent, false);
+            window.addEventListener('keyup', spaceUpEvent, false);
+            window.requestAnimationFrame(drawFrame, canvas);
+            break;
+        case GameStatesEnum.GAME_OVER:
+            window.addEventListener('click', onMouseClickEvent, false);
+            //todo: to add a variable change event listener!!
+            drawScreen(context, 'images/game-over.png');
+            break;
+        case GameStatesEnum.HIGH_SCORES:
+            drawScreen(context, 'images/high-scores.png');
+            break;
+        case GameStatesEnum.CREDITS:
+            drawScreen(context, 'images/credits.png');
+            break;
+        case GameStatesEnum.EXIT:
+            if (window.home) {
+                window.home();
+            } else {
+                if (navigator.appVersion.split('MSIE')[1] <= 7) {
+                    window.location = 'about:home';
+                } else if (window.location.href) {
+                    window.location.href = 'https://www.google.com/?hl=en';
+                }
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 // Game starts
