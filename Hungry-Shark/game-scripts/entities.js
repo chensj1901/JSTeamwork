@@ -5,7 +5,7 @@ function Shark (context, initialX, initialY) {
     this.velocityY = 0;
     this.GRAVITY = 0.2;
     this.JUMP_HEIGHT = 7;
-	
+
 	// Create sprite	
 	sharkImage = new Image();	
 	sharkImage.src = "images/shark.png";
@@ -43,6 +43,7 @@ function Prey(context, initialX, initialY) {
     this.y = initialY;
     this.VELOCITY_X = 5;
     this.generatePreyFrequency = 0;
+    var xBlood,yBlood;
     this.update = function () {
         this.x -= this.VELOCITY_X;
         this.generatePreyFrequency+=5;
@@ -66,12 +67,16 @@ function Prey(context, initialX, initialY) {
             var currentPrey = this.preyArray[i];
             currentPrey.x-= this.VELOCITY_X;
             if ((currentPrey.x <0)|| (currentPrey.isEaten())) {
+                xBlood=currentPrey.x;
+                yBlood=currentPrey.y;
                 this.preyArray.splice(i, 1);
                 i-=1;
                 len-=1;
+
             }
             if (currentPrey.isEaten()){
                 biteSound.play();
+                    context.drawImage(bloodImage,xBlood-50,yBlood-50);
                 healthBar.isFishEaten=true;
             }
         }

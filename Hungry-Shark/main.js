@@ -11,6 +11,9 @@ var highScore=0;
 var $drawHighScore;
 var $body = $('body');
 
+var bloodImage = new Image();
+bloodImage.src='images/Blood.png'
+
 var biteSound = new Audio('sounds/bite.wav');
 var gameOverSound=new Audio('sounds/game_Over.wav');
 var backgroundSong = new Audio('sounds/main.mp3');
@@ -111,6 +114,7 @@ function drawFrame () {
 			scores.update();
 			scores.draw();
 			boatBackground.draw();
+
 			drawCanvasTopBorder(40);
 
 			window.requestAnimationFrame(drawFrame, canvas);
