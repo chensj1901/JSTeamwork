@@ -52,7 +52,7 @@ function Prey(context, initialX, initialY) {
                 x: initialX,
                 y: newPreyY,
                 isEaten: function () {
-                    if ((this.x > 250 && this.x < 330) && (shark.y <= this.y) && (shark.y + 40 >= this.y)) { //shark range widened for testing;
+                    if ((this.x > 300 && this.x < 340) && (shark.y <= this.y) && (shark.y + 60 >= this.y)) { //shark range widened for testing;
                         return true;
                     } else {
                         return false;
