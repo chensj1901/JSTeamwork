@@ -34,7 +34,14 @@ backgroundSong.loop = true;
 var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
 var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
-var resetShark = true;
+// New game reset
+function resetGame() {
+    backgroundSong.play();
+    prey.preyArray = [];
+    shark = new Shark(context, 150, 250);
+    healthBar = new HealthBar(3000, 6, 330);
+    scores = new Scores();
+}
 
 // User interaction
 function onMouseClickEvent(event) {
@@ -67,7 +74,7 @@ function onMouseClickEvent(event) {
     if (newGameChoice) {
         biteSound.play();
         gameState = GameStatesEnum.GAME_ON;
-        resetShark = true;
+        resetGame();
         enterGameState(gameState);
     }
 
@@ -115,15 +122,6 @@ function drawCanvasTopBorder(positionY) {
 
 function drawFrame() {
     if (gameState === GameStatesEnum.GAME_ON) {
-        if (resetShark) {
-            backgroundSong.play();
-            resetShark = false;
-            prey.preyArray = [];
-            shark = new Shark(context, 150, 250);
-            healthBar = new HealthBar(3000, 6, 330);
-            scores = new Scores();
-        }
-
         context.clearRect(0, 0, canvas.width, canvas.height);
         oceanFloorBackground.draw();
         shark.update();
