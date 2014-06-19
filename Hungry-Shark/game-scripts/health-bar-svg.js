@@ -1,6 +1,5 @@
 function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
-
-    this.maxHP = maxhp; //tested with 300
+    this.maxHP = maxhp;
     this.currentHP = this.maxHP;
     this.percentageHP = 1;
     this.constantDecreaseHP = constantDecreasehp; //tested with 1
@@ -9,26 +8,29 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
     this.constantHPRectangleWidth = 334;
     this.isFishEaten = false;
 
-    this.update=function(){
-        //decreasing currentHP a fixed amount each frame
+    this.update = function () {
+        // Decreasing currentHP a fixed amount each frame
         this.currentHP -= this.constantDecreaseHP;
-        //check if we are dead
+        // Check if we are dead
         if (this.currentHP <= 0) {
             this.constantHPRectangleWidth = 0;
         }
-        //Logic when we eat a fish
+
+        // Logic when we eat a fish
         if (this.isFishEaten) {
             this.currentHP += this.fishIncrementHP;
         }
-        //if we have more hp than we should;
+
+        // If we have more hp than we should;
         if (this.currentHP > this.maxHP) {
             this.currentHP = this.maxHP;
         }
+
         this.percentageHP = this.currentHP / this.maxHP;
 
     };
 
-    this.draw=function() {
+    this.draw = function () {
         this.paper.clear();
         this.innerRect = this.paper.rect(9, 9, 334, 17, 2);
         this.outerRect = this.paper.rect(6, 6, 340, 23, 3);
@@ -37,18 +39,18 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
             stroke: "#7e7e7e",
             "stroke-width": 0.5
         });
+
         this.innerRect.attr({
             fill: "0-#dadada:0-#f3f3f3:100",
             stroke: "#7e7e7e",
             "stroke-width": 0.5
         });
+
         var healthPointsRect = this.paper.rect(9, 9, this.constantHPRectangleWidth * this.percentageHP, 17, 2);
         healthPointsRect.attr({
             fill: "0-#c14232:0-#f6928b:100",
             stroke: "#7e7e7e",
             "stroke-width": 0.5
         });
-
-
     };
 }

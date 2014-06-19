@@ -1,29 +1,29 @@
 // Object constructors
-function Shark (context, initialX, initialY) {
+function Shark(context, initialX, initialY) {
     this.x = initialX;
     this.y = initialY;
     this.velocityY = 0;
     this.GRAVITY = 0.2;
     this.JUMP_HEIGHT = 7;
 
-	// Create sprite	
-	sharkImage = new Image();	
-	sharkImage.src = "images/shark.png";
+    // Create sprite
+    sharkImage = new Image();
+    sharkImage.src = "images/shark.png";
 
-	sharkSpr = sprite({
-	context: canvas.getContext("2d"),
-	width: 840,
-	height: 100,
-	x: this.x,
-	y: this.y,
-	image: sharkImage,
-	numberOfFrames: 3,
-	ticksPerFrame: 8
-	});
+    sharkSpr = sprite({
+        context: canvas.getContext("2d"),
+        width: 840,
+        height: 100,
+        x: this.x,
+        y: this.y,
+        image: sharkImage,
+        numberOfFrames: 3,
+        ticksPerFrame: 8
+    });
 
     this.draw = function () {
-	    sharkSpr.update();
-		sharkSpr.render(this.x, this.y);
+        sharkSpr.update();
+        sharkSpr.render(this.x, this.y);
     };
 
     this.update = function () {
@@ -43,68 +43,73 @@ function Prey(context, initialX, initialY) {
     this.y = initialY;
     this.VELOCITY_X = 5;
     this.generatePreyFrequency = 0;
-    var xBlood,yBlood;
+    var xBlood, yBlood;
+
     this.update = function () {
         this.x -= this.VELOCITY_X;
-        this.generatePreyFrequency+=5;
+        this.generatePreyFrequency += 5;
+
         if (this.generatePreyFrequency === 150) {
             var newPreyY = Math.floor(Math.random() * (540 - 20) + 60);
             this.preyArray.push({
                 x: initialX,
                 y: newPreyY,
                 isEaten: function () {
-                    if ((this.x > 300 && this.x < 340) && (shark.y <= this.y) && (shark.y + 60 >= this.y)) { //shark range widened for testing;
+                    if ((this.x > 300 && this.x < 340) && (shark.y <= this.y) && (shark.y + 60 >= this.y)) {
                         return true;
                     } else {
                         return false;
                     }
                 }
-            })
-                this.generatePreyFrequency = 0;
+            });
+
+            this.generatePreyFrequency = 0;
         }
 
-        for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
+        for (var i = 0, len = this.preyArray.length; i < len; i += 1) {
             var currentPrey = this.preyArray[i];
-            currentPrey.x-= this.VELOCITY_X;
-            if ((currentPrey.x <0)|| (currentPrey.isEaten())) {
-                xBlood=currentPrey.x;
-                yBlood=currentPrey.y;
+            currentPrey.x -= this.VELOCITY_X;
+            if ((currentPrey.x < 0) || (currentPrey.isEaten())) {
+                xBlood = currentPrey.x;
+                yBlood = currentPrey.y;
                 this.preyArray.splice(i, 1);
-                i-=1;
-                len-=1;
+                i -= 1;
+                len -= 1;
 
             }
-            if (currentPrey.isEaten()){
+
+            if (currentPrey.isEaten()) {
                 biteSound.play();
-                    context.drawImage(bloodImage,xBlood-50,yBlood-50);
-                healthBar.isFishEaten=true;
+                context.drawImage(bloodImage, xBlood - 50, yBlood - 50);
+                healthBar.isFishEaten = true;
             }
         }
     };
 
-	fishImage = new Image();	
-	fishImage.src = "images/prey-fish.png";
+    fishImage = new Image();
+    fishImage.src = "images/prey-fish.png";
 
-	fishSpr = sprite({
-		context: canvas.getContext("2d"),
-		width: 130,
-		height: 40,
-		x: this.x,
-		y: this.y,
-		image: fishImage,
-		numberOfFrames: 2,
-		ticksPerFrame: 10
-	});
-	
+    fishSpr = sprite({
+        context: canvas.getContext("2d"),
+        width: 130,
+        height: 40,
+        x: this.x,
+        y: this.y,
+        image: fishImage,
+        numberOfFrames: 2,
+        ticksPerFrame: 10
+    });
+
     this.draw = function () {
-        for (var i = 0, len = this.preyArray.length; i < len; i+=1) {
+        for (var i = 0, len = this.preyArray.length; i < len; i += 1) {
             var currentPrey = this.preyArray[i];
-			fishSpr.update();
-			fishSpr.render(currentPrey.x, currentPrey.y);
+            fishSpr.update();
+            fishSpr.render(currentPrey.x, currentPrey.y);
         }
     };
 }
-function BackgroundFeature (context, imageSource, positionY, velocityX) {
+
+function BackgroundFeature(context, imageSource, positionY, velocityX) {
     this.image = new Image();
     this.image.src = imageSource;
     this.x = 0;

@@ -8,10 +8,11 @@ canvas {
     left: 0;
     right: 0;
 }
-span{
-    font-family:Papyrus;
-    font-size:40px;
-    font-weight:bold;
-    position:relative;
+
+span {
+    font-family: Papyrus;
+    font-size: 40px;
+    font-weight: bold;
+    position: relative;
 
 }
