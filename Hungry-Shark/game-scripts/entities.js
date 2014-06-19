@@ -1,4 +1,3 @@
-// Object constructors
 function Shark(context, initialX, initialY) {
     this.x = initialX;
     this.y = initialY;
