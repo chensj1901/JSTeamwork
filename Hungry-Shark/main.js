@@ -121,6 +121,7 @@ function drawCanvasTopBorder(positionY) {
 function drawFrame() {
     if (gameState === GameState.GAME_ON) {
         context.clearRect(0, 0, canvas.width, canvas.height);
+        boatBackground.draw();
         oceanFloorBackground.draw();
         shark.update();
         shark.draw();
@@ -130,7 +131,6 @@ function drawFrame() {
         healthBar.draw();
         scores.update();
         scores.draw();
-        boatBackground.draw();
         drawCanvasTopBorder(40);
 
         window.requestAnimationFrame(drawFrame, canvas);
