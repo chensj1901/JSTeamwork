@@ -4,6 +4,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
     this.percentageHP = 1;
     this.constantDecreaseHP = constantDecreasehp;
     this.fishIncrementHP = fishIncrementhp;
+
     this.paper = Raphael(canvas.offsetLeft, canvas.offsetTop, 900, 50);
     this.constantHPRectangleWidth = 334;
     this.isFishEaten = false;
@@ -11,6 +12,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
     this.update = function () {
         // Decreasing currentHP a fixed amount each frame
         this.currentHP -= this.constantDecreaseHP;
+        
         // Check if we are dead
         if (this.currentHP <= 0) {
             this.constantHPRectangleWidth = 0;

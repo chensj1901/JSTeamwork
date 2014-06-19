@@ -7,10 +7,10 @@ function Shark(context, initialX, initialY) {
     this.JUMP_HEIGHT = 7;
 
     // Create sprite
-    sharkImage = new Image();
+    var sharkImage = new Image();
     sharkImage.src = "images/shark.png";
 
-    sharkSpr = sprite({
+    var sharkSpr = sprite({
         context: canvas.getContext("2d"),
         width: 840,
         height: 100,
@@ -86,10 +86,10 @@ function Prey(context, initialX, initialY) {
         }
     };
 
-    fishImage = new Image();
+    var fishImage = new Image();
     fishImage.src = "images/prey-fish.png";
 
-    fishSpr = sprite({
+    var fishSpr = sprite({
         context: canvas.getContext("2d"),
         width: 130,
         height: 40,

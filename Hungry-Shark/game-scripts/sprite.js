@@ -1,5 +1,4 @@
 function sprite(options) {
-
     var that = {},
         frameIndex = 0,
         tickCount = 0,
@@ -14,11 +13,9 @@ function sprite(options) {
     that.image = options.image;
 
     that.update = function () {
-
         tickCount += 1;
 
         if (tickCount > ticksPerFrame) {
-
             tickCount = 0;
 
             // If the current frame index is in range
