@@ -15,24 +15,22 @@ if (!window.requestAnimationFrame) {
 // Initialize objects
 var shark = new Shark(context, 150, 250);
 var prey = new Prey(context, 750, 250);
-
 var healthBar = new HealthBar(3000, 5, 330);
 var scores = new Scores();
+var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
+var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
 var highScore = 0;
 var $drawHighScore;
 var $body = $('body');
 
 var bloodImage = new Image();
-bloodImage.src = 'images/blood.png'
+bloodImage.src = 'images/blood.png';
 
 var biteSound = new Audio('sounds/bite.wav');
-var gameOverSound = new Audio('sounds/game_Over.wav');
+var gameOverSound = new Audio('sounds/game-over.wav');
 var backgroundSong = new Audio('sounds/main.mp3');
 backgroundSong.loop = true;
-
-var oceanFloorBackground = new BackgroundFeature(context, 'images/ocean-floor.png', 370, 4);
-var boatBackground = new BackgroundFeature(context, 'images/boat.png', 42, 2);
 
 // New game reset
 function resetGame() {
@@ -45,10 +43,10 @@ function resetGame() {
 
 // User interaction
 function onMouseClickEvent(event) {
-    if (gameState === GameStatesEnum.HIGH_SCORES || gameState === GameStatesEnum.CREDITS) {
+    if (gameState === GameState.HIGH_SCORES || gameState === GameState.CREDITS) {
         biteSound.play();
         $("body").find("span").remove();
-        gameState = GameStatesEnum.START_SCREEN;
+        gameState = GameState.START_SCREEN;
         enterGameState(gameState);
     }
 
@@ -73,26 +71,26 @@ function onMouseClickEvent(event) {
 
     if (newGameChoice) {
         biteSound.play();
-        gameState = GameStatesEnum.GAME_ON;
+        gameState = GameState.GAME_ON;
         resetGame();
         enterGameState(gameState);
     }
 
     if (highScoresChoice) {
         biteSound.play();
-        gameState = GameStatesEnum.HIGH_SCORES;
+        gameState = GameState.HIGH_SCORES;
         enterGameState(gameState);
     }
 
     if (creditsChoice) {
         biteSound.play();
-        gameState = GameStatesEnum.CREDITS;
+        gameState = GameState.CREDITS;
         enterGameState(gameState);
     }
 
     if (exitChoice) {
         biteSound.play();
-        gameState = GameStatesEnum.EXIT;
+        gameState = GameState.EXIT;
         enterGameState(gameState);
     }
 }
@@ -121,7 +119,7 @@ function drawCanvasTopBorder(positionY) {
 }
 
 function drawFrame() {
-    if (gameState === GameStatesEnum.GAME_ON) {
+    if (gameState === GameState.GAME_ON) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         oceanFloorBackground.draw();
         shark.update();
@@ -133,17 +131,17 @@ function drawFrame() {
         scores.update();
         scores.draw();
         boatBackground.draw();
-
         drawCanvasTopBorder(40);
 
         window.requestAnimationFrame(drawFrame, canvas);
     }
 
+    // When shark dies
     if (shark.y < 40 || shark.y > 570 || healthBar.currentHP <= 0) {
         backgroundSong.pause();
         backgroundSong.currentTime = 0;
         gameOverSound.play();
-        gameState = GameStatesEnum.GAME_OVER;
+        gameState = GameState.GAME_OVER;
         enterGameState(gameState);
         if (highScore < scores.score) {
             highScore = scores.score;
@@ -152,8 +150,8 @@ function drawFrame() {
     }
 }
 
-// Game states
-var GameStatesEnum = {
+// Game states enum
+var GameState = {
     START_SCREEN: 0,
     GAME_ON: 1,
     GAME_OVER: 2,
@@ -162,42 +160,33 @@ var GameStatesEnum = {
     EXIT: 5
 };
 
-var gameState = GameStatesEnum.START_SCREEN;
+var gameState = GameState.START_SCREEN;
 
 function enterGameState(gameState) {
     switch (gameState) {
-        case GameStatesEnum.START_SCREEN:
+        case GameState.START_SCREEN:
             window.addEventListener('click', onMouseClickEvent, false);
             drawScreen(context, 'images/start-screen.png');
             break;
-        case GameStatesEnum.GAME_ON:
+        case GameState.GAME_ON:
             window.addEventListener('keydown', spaceDownEvent, false);
             window.addEventListener('keyup', spaceUpEvent, false);
             window.requestAnimationFrame(drawFrame, canvas);
             break;
-        case GameStatesEnum.GAME_OVER:
-            window.addEventListener('click', onMouseClickEvent, false);
+        case GameState.GAME_OVER:
             drawScreen(context, 'images/game-over.png');
             break;
-        case GameStatesEnum.HIGH_SCORES:
+        case GameState.HIGH_SCORES:
             drawScreen(context, 'images/high-scores.png');
             $drawHighScore = $("<span>").text(Math.round(highScore / 100));
             $drawHighScore.offset({top: canvas.offsetTop + 150, left: canvas.offsetLeft + 260});
             $body.append($drawHighScore);
             break;
-        case GameStatesEnum.CREDITS:
+        case GameState.CREDITS:
             drawScreen(context, 'images/credits.png');
             break;
-        case GameStatesEnum.EXIT:
-            if (window.home) {
-                window.home();
-            } else {
-                if (navigator.appVersion.split('MSIE')[1] <= 7) {
-                    window.location = 'about:home';
-                } else if (window.location.href) {
-                    window.location.href = 'https://www.google.com/?hl=en';
-                }
-            }
+        case GameState.EXIT:
+            window.location.href = 'https://www.google.com/';
             break;
         default:
             break;

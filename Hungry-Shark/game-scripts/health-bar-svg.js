@@ -2,7 +2,7 @@ function HealthBar(maxhp, constantDecreasehp, fishIncrementhp) {
     this.maxHP = maxhp;
     this.currentHP = this.maxHP;
     this.percentageHP = 1;
-    this.constantDecreaseHP = constantDecreasehp; //tested with 1
+    this.constantDecreaseHP = constantDecreasehp;
     this.fishIncrementHP = fishIncrementhp;
     this.paper = Raphael(canvas.offsetLeft, canvas.offsetTop, 900, 50);
     this.constantHPRectangleWidth = 334;
