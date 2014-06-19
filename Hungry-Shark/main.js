@@ -1,6 +1,17 @@
 var canvas = document.getElementById("animation-canvas"),
     context = canvas.getContext('2d');
 
+// Cross-browser requestAnimationFrame
+if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = (window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+            return window.setTimeout(callback, 1000/60);
+        });
+}
+
 // Initialize objects
 var shark = new Shark(context, 150, 250);
 var prey = new Prey(context, 750, 250);
